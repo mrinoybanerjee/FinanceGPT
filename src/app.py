@@ -78,9 +78,8 @@ st.header("Please answer the following questions to get started:")
 age = st.number_input("Age:")
 Annual_Income = st.number_input("Annual Income:")
 Employment_Status = st.selectbox("Employment Status:", ["Employed", "Unemployed", "Self-Employed"])
-Debt = st.selectbox("Do you have any debt?", ["Yes", "No"])
-Assets = st.selectbox("Do you have any assets?", ["Yes", "No"])
-Assets_Value = st.number_input("Value of Assets:")
+Debt = st.number_input("Value of Debt:")
+Assets = st.number_input("Value of Assets:")
 Credit_score = st.number_input("Credit Score:")
 Financial_Goals = st.text_input("What are your financial goals?")
 Risk_Tolerance = st.selectbox("What is your risk tolerance?", ["Low", "Medium", "High"])
@@ -88,16 +87,15 @@ Time_Horizon = st.selectbox("What is your time horizon?", ["Short-term", "Medium
 
 # Pass the user's details to the model
 user_input = {
-    "age": age,
-    "annual_income": Annual_Income,
-    "employment_status": Employment_Status,
-    "debt": Debt,
-    "assets": Assets,
-    "assets_value": Assets_Value,
-    "credit_score": Credit_score,
-    "financial_goals": Financial_Goals,
-    "risk_tolerance": Risk_Tolerance,
-    "time_horizon": Time_Horizon
+    "Age": age,
+    "Income": Annual_Income,
+    "Employment": Employment_Status,
+    "Debt": Debt,
+    "Assets": Assets,
+    "Credit_Score": Credit_score,
+    "Financial_Goals": Financial_Goals,
+    "Risk_Tolerance": Risk_Tolerance,
+    "Time_Horizon": Time_Horizon
 }
 
 # Define your query

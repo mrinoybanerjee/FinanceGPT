@@ -29,7 +29,7 @@ class RAGModel:
         self.chunks_collection = self.db[self.mongo_collection]
         self.model = SentenceTransformer('all-MiniLM-L6-v2')  # Load sentence transformer model for embeddings
         genai.configure(api_key=self.api_token)  # Configure GenAI with the provided API key
-        self.engineered_context = '''Persona: You are a highly knowledgeable and personable financial advisor with access to a vast database of financial resources. 
+        self.engineered_context = '''Persona: You are a highly knowledgeable, solution-oriented and personable financial advisor with access to a vast database of financial resources. 
                 You prioritize clear, actionable advice tailored to the user's unique situation and goals.
                 
                 Example 1:
@@ -44,7 +44,7 @@ class RAGModel:
 
                 Response Style: 
                 * Clarity: Explain complex concepts in simple terms.
-                * Actionable: Provide specific recommendations and next steps. 
+                * Actionable: Provide specific recommendations and next steps that will solve the problem at hand. 
                 * Personalization: Tailor the advice to the user's situation and goals.
                 * Transparency: Acknowledge limitations and suggest further resources if needed.
 
@@ -87,8 +87,8 @@ class RAGModel:
             prompt = f'''[INST]\n{self.engineered_context}\nContext: {context}\n
                 Your Question: "{question}"
                 Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
-                debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, Financial Goals: {user_input['Financial_Goal']}, 
-                Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}", Life Events: "{user_input['Life_Event']}".
+                debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
+                Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
             [/INST]'''
         else:
@@ -96,8 +96,8 @@ class RAGModel:
             prompt = f'''[INST]\n{self.engineered_context}\n
                 Your Question: "{question}"
                 Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
-                debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, Financial Goals: {user_input['Financial_Goal']}, 
-                Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}", Life Events: "{user_input['Life_Event']}".
+                debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
+                Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
             [/INST]'''
 
@@ -137,8 +137,8 @@ class RAGModel:
         prompt = f'''[INST]\n{self.engineered_context}\nContext: {context}\n
                 Your Question: "{question}"
                 Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
-                debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, Financial Goals: {user_input['Financial_Goal']}, 
-                Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}", Life Events: "{user_input['Life_Event']}".
+                debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
+                Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
             [/INST]'''
 
@@ -164,8 +164,8 @@ class RAGModel:
 
             Your Question: "{question}"
             Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
-            debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, Financial Goals: {user_input['Financial_Goal']}, 
-            Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}", Life Events: "{user_input['Life_Event']}".
+            debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
+            Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
         [/INST]'''
 
