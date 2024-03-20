@@ -14,4 +14,3 @@ streamlit==1.31.1
 torch==2.2.0
 tqdm==4.66.2
 trafilatura==1.7.0
-google-ai-generativelanguage==0.4.0
