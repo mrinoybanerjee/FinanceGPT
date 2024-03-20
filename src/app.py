@@ -66,7 +66,7 @@ st.markdown(footer, unsafe_allow_html=True)
 
 # Display logo at the center
 st.markdown("<div class='logo-img'>", unsafe_allow_html=True)
-st.image("src/.streamlit/AyurGPT.jpeg", width=200)  # Adjust the path and width as needed
+st.image("src/.streamlit/logo_fingpt.jpg", width=200)  # Adjust the path and width as needed
 st.markdown("</div>", unsafe_allow_html=True)
 
 # Display title and description
@@ -76,6 +76,7 @@ st.write("FinanceGPT is a conversational AI model that can answer questions rela
 # Enable users to input personal finance details
 st.header("Please answer the following questions to get started:")
 age = st.number_input("Age:")
+location = st.number_input("Location:")
 Annual_Income = st.number_input("Annual Income:")
 Employment_Status = st.selectbox("Employment Status:", ["Employed", "Unemployed", "Self-Employed"])
 Debt = st.number_input("Value of Debt:")
@@ -88,6 +89,7 @@ Time_Horizon = st.selectbox("What is your time horizon?", ["Short-term", "Medium
 # Pass the user's details to the model
 user_input = {
     "Age": age,
+    "Location": location,
     "Income": Annual_Income,
     "Employment": Employment_Status,
     "Debt": Debt,

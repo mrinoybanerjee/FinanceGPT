@@ -32,13 +32,13 @@ class RAGModel:
                 
                 Example 1:
                 Question: "I'm 30 years old making $60,000 a year with no debt and $20,000 in savings. How can I start investing for retirement?"
-                User Context: Financial Situation: Age: 30, income: 60000, employment: "Full Time", debt: 0, assets: 20000. Financial Goals: Long-term (retirement). Risk Tolerance: Moderate. Life Events: N/A.
-                Answer: "Given your stable income, no debt, and a moderate risk tolerance, you're in a great position to start investing for retirement. A balanced mix of stocks and bonds in a tax-advantaged retirement account like a Roth IRA would be a good start. Consider allocating 70% to a diversified stock fund and 30% to bonds. Adjust the allocation as you age or as your risk tolerance changes."
+                User Context: Financial Situation: Age: 30, location: New York City, income: 60000, employment: "Full Time", debt: 0, assets: 20000. Financial Goals: Long-term (retirement). Risk Tolerance: Moderate. Life Events: N/A.
+                Answer: "You have a stable income, no debt, and a moderate risk tolerance, however you live in a very expensive city and if your job allows you should try to relocate outside Manhattan. A balanced mix of stocks and bonds in a tax-advantaged retirement account like a Roth IRA would be a good start. Consider allocating 70% to a diversified stock fund and 30% to bonds. Adjust the allocation as you age or as your risk tolerance changes."
 
                 Example 2:
                 Question: "I'm 22, just started my first job earning $45,000, and have $10,000 in student loans. What's my best strategy for saving?"
-                User Context: Financial Situation: Age: 22, income: 45000, employment: "Full Time", debt: 10000, assets: 5000. Financial Goals: Short-term (emergency fund), mid-term (debt repayment). Risk Tolerance: Low. Life Events: Starting first job.
-                Answer: "Starting with your student loans and building an emergency fund are your first steps. Aim to pay more than the minimum on your loans to reduce interest costs over time. For your emergency fund, start by saving three months' worth of expenses in a high-yield savings account, gradually increasing to six months. Once these goals are met, you can start saving for other short- and mid-term goals."
+                User Context: Financial Situation: Age: 22, location: "Raleigh, NC", income: 45000, employment: "Full Time", debt: 10000, assets: 5000. Financial Goals: Short-term (emergency fund), mid-term (debt repayment). Risk Tolerance: Low. Life Events: Starting first job.
+                Answer: "Starting with your student loans and building an emergency fund are your first steps. You live in a cheaper city which will allow you to maximize savings. Aim to pay more than the minimum on your loans to reduce interest costs over time. For your emergency fund, start by saving three months' worth of expenses in a high-yield savings account, gradually increasing to six months. Once these goals are met, you can start saving for other short- and mid-term goals."
 
                 Response Style: 
                 * Clarity: Explain complex concepts in simple terms.
@@ -66,7 +66,7 @@ class RAGModel:
         return similarities[:top_k]
     
 
-    def generate_answer(self, question, user_input, max_context_length=1000):
+    def generate_answer(self, question, user_input, max_context_length=20000):
         """
         Generates an answer to a given question using the best context found by semantic search
         and a mixtral of experts model.
@@ -84,7 +84,7 @@ class RAGModel:
             # Use engineered context with the best context found by semantic search
             prompt = f'''[INST]\n{self.engineered_context}\nContext: {context}\n
                 Your Question: "{question}"
-                Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
+                Your User Context: Financial Situation: Age: {user_input['Age']}, location: {user_input['Location']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
                 debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
                 Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
@@ -93,7 +93,7 @@ class RAGModel:
             # Use only the engineered context
             prompt = f'''[INST]\n{self.engineered_context}\n
                 Your Question: "{question}"
-                Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
+                Your User Context: Financial Situation: Age: {user_input['Age']},  location: {user_input['Location']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
                 debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
                 Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
@@ -134,7 +134,7 @@ class RAGModel:
         # Use engineered context with the best context found by semantic search
         prompt = f'''[INST]\n{self.engineered_context}\nContext: {context}\n
                 Your Question: "{question}"
-                Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
+                Your User Context: Financial Situation: Age: {user_input['Age']}, location: {user_input['Location']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
                 debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
                 Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
@@ -169,7 +169,7 @@ class RAGModel:
         prompt = f'''[INST]\n{self.engineered_context}\n
 
             Your Question: "{question}"
-            Your User Context: Financial Situation: Age: {user_input['Age']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
+            Your User Context: Financial Situation: Age: {user_input['Age']}, location: {user_input['Location']}, income: {user_input['Income']}, employment: "{user_input['Employment']}", 
             debt: {user_input['Debt']}, assets: {user_input['Assets']}, credit score: {user_input['Credit_Score']}, 
             Financial Goals: {user_input['Financial_Goals']}, Risk Tolerance: "{user_input['Risk_Tolerance']}", Time Horizon: "{user_input['Time_Horizon']}".
 
