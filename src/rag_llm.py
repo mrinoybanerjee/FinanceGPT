@@ -2,7 +2,6 @@ import pymongo
 import numpy as np
 from scipy.spatial.distance import cosine
 from replicate.client import Client
-import google.generativeai as genai  # Import Google GenAI
 from sentence_transformers import SentenceTransformer
 
 class RAGModel:
@@ -28,7 +27,6 @@ class RAGModel:
         self.db = self.client[self.mongo_database]
         self.chunks_collection = self.db[self.mongo_collection]
         self.model = SentenceTransformer('all-MiniLM-L6-v2')  # Load sentence transformer model for embeddings
-        genai.configure(api_key=self.api_token)  # Configure GenAI with the provided API key
         self.engineered_context = '''Persona: You are a highly knowledgeable, solution-oriented and personable financial advisor with access to a vast database of financial resources. 
                 You prioritize clear, actionable advice tailored to the user's unique situation and goals.
                 
@@ -142,14 +140,22 @@ class RAGModel:
 
             [/INST]'''
 
-        model = genai.GenerativeModel('gemini-pro')
-        response = model.generate_content(prompt)
-
-        # Handle the case where the response is empty
-        if not response.text:
-            return "Sorry, I don't have an answer for that."
-        
-        return response.text
+        replicate_client = Client(api_token=self.api_token)
+         # The mistralai/mixtral-8x7b-instruct-v0.1 model can stream output as it's running.
+        for event in replicate_client.stream(
+            "mistralai/mixtral-8x7b-instruct-v0.1",
+            input={
+                "top_k": 50,
+                "top_p": 1,
+                "prompt": prompt,
+                "temperature": 0.5,
+                "max_new_tokens": 1024,
+                "prompt_template": "<s>[INST] {prompt} [/INST] ",
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+            },
+        ):
+            print(str(event), end="")
     
 
     def generate_non_RAG_answer(self, question, user_input):
@@ -169,12 +175,19 @@ class RAGModel:
 
         [/INST]'''
 
-
-        model = genai.GenerativeModel('gemini-pro')
-        response = model.generate_content(prompt)
-
-        # Handle the case where the response is empty
-        if not response.text:
-            return "Sorry, I don't have an answer for that."
-        
-        return response.text
+        replicate_client = Client(api_token=self.api_token)
+         # The mistralai/mixtral-8x7b-instruct-v0.1 model can stream output as it's running.
+        for event in replicate_client.stream(
+            "mistralai/mixtral-8x7b-instruct-v0.1",
+            input={
+                "top_k": 50,
+                "top_p": 1,
+                "prompt": prompt,
+                "temperature": 0.5,
+                "max_new_tokens": 1024,
+                "prompt_template": "<s>[INST] {prompt} [/INST] ",
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+            },
+        ):
+            print(str(event), end="")
