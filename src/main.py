@@ -31,6 +31,7 @@ def chat_mode():
 
     # Ask the user for their details
     age = int(input("Enter your age: "))
+    location = input("Enter your location: ")
     Annual_Income = int(input("Enter your annual income: "))
     Employment_Status = input("Enter your employment status (Employed, Unemployed, Self-employed): ")
     Debt = int(input("Enter the value of your debt: "))
@@ -43,6 +44,7 @@ def chat_mode():
     # Pass the user's details to the model
     user_input = {
     "Age": age,
+    "Location": location,
     "Income": Annual_Income,
     "Employment": Employment_Status,
     "Debt": Debt,
@@ -81,6 +83,7 @@ def eval_mode():
 
     # Ask the user for their details
     age = int(input("Enter your age: "))
+    location = input("Enter your location: ")
     Annual_Income = int(input("Enter your annual income: "))
     Employment_Status = input("Enter your employment status (Employed, Unemployed, Self-employed): ")
     Debt = int(input("Enter the value of your debt: "))
@@ -93,6 +96,7 @@ def eval_mode():
     # Pass the user's details to the model
     user_input = {
     "Age": age,
+    "Location": location,
     "Income": Annual_Income,
     "Employment": Employment_Status,
     "Debt": Debt,
